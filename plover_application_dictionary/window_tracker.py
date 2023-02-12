@@ -14,8 +14,11 @@ class WindowTracker:
 
     @staticmethod
     def check_active_window() -> None:
-        window = getActiveWindow()
-        WindowTracker.current_title = window.title
+        try:
+            window = getActiveWindow()
+            WindowTracker.current_title = window.title
+        except:
+            WindowTracker.current_title = ""
 
         try:
             WindowTracker.current_app = window.getAppName()
