@@ -1,9 +1,8 @@
 from __future__ import annotations
+from typing import Dict, Tuple
 
 import json
 import re
-
-from typing import Tuple
 
 from plover.dictionary.helpers import StenoNormalizer
 from plover.steno import steno_to_sort_key
@@ -22,10 +21,7 @@ class SingleApplicationDictionary(StenoDictionary):
         self._re_title = ""
         self._re_title_compiled = None
 
-    def _load(self, filename: str) -> None:
-        with open(filename) as f:
-           data = json.load(f)
-
+    def load_json(self, origin_file: str, data: Dict) -> None:
         self._re_app = data["app"]
         self._re_class = data["class"]
         self._re_title = data["title"]
@@ -37,8 +33,13 @@ class SingleApplicationDictionary(StenoDictionary):
         if self._re_title:
             self._re_title_compiled = re.compile(self._re_title)
 
-        with StenoNormalizer(filename) as normalize_steno:
+        with StenoNormalizer(origin_file) as normalize_steno:
             self.update((normalize_steno(key), value) for key, value in data["entries"].items())
+
+    def _load(self, filename: str) -> None:
+        with open(filename) as f:
+            data = json.load(f)
+            self.load_json(filename, data)
 
     def _save(self, filename: str) -> None:
         mappings = [('/'.join(k), v) for k, v in self.items()]
@@ -67,7 +68,12 @@ class SingleApplicationDictionary(StenoDictionary):
                 return False
         return True
 
-    def get(self, key: Tuple[str], fallback=None) -> str | None:
+    def __getitem__(self, key: Tuple[str]) -> str:
         if not self._active_window_matches():
-            return None
+            raise KeyError
+        return super().__getitem__(key)
+
+    def get(self, key: Tuple[str], fallback: str = None) -> str | None:
+        if not self._active_window_matches():
+            return fallback
         return super().get(key, fallback)
