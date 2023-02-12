@@ -16,8 +16,8 @@ Restart Plover.
 ## Dictionaries:
 
 Dictionaries can match applications using three properties, `app`, `class` and `title`. `title` *should* be consistent
-between platforms whereas, `class` and `app` will depend across platforms and specific user installations. To find an
-application's `app` or `class`, see [meta actions](#meta-actions).
+between platforms, whereas `class` and `app` will depend across platforms and specific user installations. To find an
+application's `app` or `class`, see [meta actions](#meta-actions). `class` is only available on some Linux systems.
 
 Matching supports full Regex. An empty string will match anything.
 
@@ -53,22 +53,22 @@ The following is an example dictionary which defines separate entries depending 
     }
   },
   {
-      "app": "",
-      "class": "discord",
-      "title": "@User2 - Discord",
-      "entries": {
-        ...
-      }
+    "app": "",
+    "class": "discord",
+    "title": "@User2 - Discord",
+    "entries": {
+      ...
     }
+  }
 ]
 ```
 
 ## Meta Actions:
 
 The `{:application_name}` meta outputs information about the currently active window. Argument can be `app`, `class` or 
-`title`, or a combination of them with `:` as a separator.
+`title`, or a combination of them with `:` as a separator. When a property is unknown `UNKNOWN` will be output.
 
-The following example will output `:Navigator:Mozilla Firefox` (output will vary between platforms and installations). 
+The following example will output `UNKNOWN:Navigator:Mozilla Firefox` (output will vary between platforms and installations). 
 
 #### Example:
 ```json
