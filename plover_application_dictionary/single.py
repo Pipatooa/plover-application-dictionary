@@ -58,13 +58,13 @@ class SingleApplicationDictionary(StenoDictionary):
 
     def _active_window_matches(self) -> bool:
         if self._re_app_compiled is not None:
-            if not self._re_app_compiled.match(WindowTracker.current_app):
+            if not self._re_app_compiled.match(WindowTracker.current_window_details.app_name):
                 return False
         if self._re_class_compiled is not None:
-            if not self._re_class_compiled.match(WindowTracker.current_class):
+            if not self._re_class_compiled.match(WindowTracker.current_window_details.class_name):
                 return False
         if self._re_title_compiled is not None:
-            if not self._re_title_compiled.match(WindowTracker.current_title):
+            if not self._re_title_compiled.match(WindowTracker.current_window_details.title):
                 return False
         return True
 
