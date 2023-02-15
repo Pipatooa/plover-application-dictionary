@@ -1,2 +1,2 @@
-from plover_application_dictionary.extension import ApplicationDictionaryExtension
-from plover_application_dictionary.window_tracker import WindowTracker
+from plover_application_dictionary.single import SingleApplicationDictionary
+from plover_application_dictionary.multiple import MultipleApplicationDictionary

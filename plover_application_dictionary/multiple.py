@@ -5,7 +5,7 @@ import json
 
 from plover.steno_dictionary import StenoDictionary
 
-from plover_application_dictionary.dictionary import SingleApplicationDictionary
+from plover_application_dictionary import SingleApplicationDictionary
 
 
 class MultipleApplicationDictionary(StenoDictionary):

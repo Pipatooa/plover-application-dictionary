@@ -8,7 +8,7 @@ from plover.dictionary.helpers import StenoNormalizer
 from plover.steno import steno_to_sort_key
 from plover.steno_dictionary import StenoDictionary
 
-from plover_application_dictionary.window_tracker import WindowTracker
+from plover_application_controls import WindowTracker
 
 
 class SingleApplicationDictionary(StenoDictionary):

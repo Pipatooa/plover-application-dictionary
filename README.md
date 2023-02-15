@@ -5,24 +5,30 @@ This plugin has two dictionary types `.ad` and `.mad`, for defining single or mu
 respectively. The first is not readonly, allowing for entries to be added through Plover, but `.mad` dictionaries are
 readonly. Both have to be edited to change which applications the entries within the dictionary 
 
-## Installation:
+## Installation
+- Navigate to the installation directory for Plover and open a terminal / command prompt.
 
-Navigate to the installation directory for Plover and open a terminal / command prompt.
+- > Run: `<exe_name> -s plover_plugins install -e plover-application-dictionary`
 
-> Run: `<exe_name> -s plover_plugins install -e plover-application-dictionary`
+    The [plover-application-controls](https://github.com/Pipatooa/plover-application-controls) plugin should be 
+    installed automatically as a dependency.
 
-Restart Plover.
+
+- Restart Plover.
+
+- Configure > Plugins > Enable `application_controls`.
+
+Disabling `application_controls` will prevent the plugin from being able to detect the currently active window.
 
 ## Dictionaries:
 
 Dictionaries can match applications using three properties, `app`, `class` and `title`. `title` *should* be consistent
 between platforms, whereas `class` and `app` will depend across platforms and specific user installations. To find an
-application's `app` or `class`, see [meta actions](#meta-actions). `class` is only available on some Linux systems.
+application's `app` or `class`, see
+[plover-application-controls meta actions](https://github.com/Pipatooa/plover-application-controls#meta-actions). 
+`class` is only available on some Linux systems.
 
 Matching supports full Regex. An empty string will match anything.
-
-> **Note:** The plugin only checks the currently focussed window every 0.25 seconds, so translations made quickly after
-> switching windows may be inaccurate.
 
 The following is an example dictionary which only activates when Discord or Firefox is active. Implementation from
 system to system may vary.
@@ -61,18 +67,4 @@ The following is an example dictionary which defines separate entries depending 
     }
   }
 ]
-```
-
-## Meta Actions:
-
-The `{:application_name}` meta outputs information about the currently active window. Argument can be `app`, `class` or 
-`title`, or a combination of them with `:` as a separator. When a property is unknown `UNKNOWN` will be output.
-
-The following example will output `UNKNOWN:Navigator:Mozilla Firefox` (output will vary between platforms and installations). 
-
-#### Example:
-```json
-{
-  "W*EUPB": "{:application_name:app:class:title}"
-}
 ```
